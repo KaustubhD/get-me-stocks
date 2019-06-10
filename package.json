@@ -1,7 +1,8 @@
 {
-  "name": "my-hyperdev-app",
+  "author": "Kaustubh",
+  "name": "stock-price-tracker",
   "version": "0.0.1",
-  "description": "What am I about?",
+  "description": "A service to check the stock prices and like em",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
@@ -23,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://hyperdev.com/#!/project/welcome-project"
+    "url": "https://api.glitch.com/git/get-me-stocks"
   },
   "keywords": [
     "node",

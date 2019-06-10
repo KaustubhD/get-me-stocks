@@ -14,7 +14,7 @@ function changeToRelLikes(stocks){
 }
 
 function cleanUpStockObject(doc, apiData){
-  console.log(doc, apiData)
+  // console.log(doc, apiData)
   delete doc.symbol
   delete doc._id
   delete doc.ip
@@ -55,9 +55,9 @@ async function getData(stock){
         })
         .then(doc => cleanUpStockObject(doc.value, data))
       })
-      .catch(err => console.error(err))
+      .catch(err => err)
     })
-    .catch(err => console.error('Error in connection', err))
+    .catch(err => err)
     
   })
 }
@@ -75,8 +75,12 @@ module.exports = function (app) {
       
       if(typeof symbol == 'string'){
         
-        let stock = { stockData: await getData(noName) }
-        console.log(stock)
+        let stock = {}
+        await getData(noName)
+        .then(st => stock.stockData = st)
+        .catch(err => res.status(400).send(err))
+        
+        // console.log(stock)
         res.json(stock)
       
       }
@@ -88,23 +92,16 @@ module.exports = function (app) {
         
         const promiseArray = noNames.map(noname => getData(noname))
         // console.log(noNames)
-        let stocks = { stockData: await (Promise.all(promiseArray)) }
+        let stocks = {}
+        await Promise.all(promiseArray)
+        .then(st => stocks.stockData = st)
+        .catch(err => res.status(400).send(err))
         stocks = changeToRelLikes(stocks)
-        console.log(stocks)
+        
+        // console.log(stocks)
         res.json(stocks)
-        
-        
-        
-        
-        
-        
+         
       }
-    //   fetch(`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${req.query.stock}&apikey={process.env.KEY}`)
-    //     .then(res => res.json())
-    //     .then(data => console.log(data))
-    
-    
-    
     
     })
 }
