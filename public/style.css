@@ -1,0 +1,12 @@
+body{
+  font-family: Helvetica;
+}
+.testui{
+  margin-left: 5%;
+}
+#jsonResult{
+  margin-top: 20px;
+}
+hr{
+  margin: 50px; margin-top: 100px;
+}
